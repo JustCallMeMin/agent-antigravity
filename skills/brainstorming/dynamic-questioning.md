@@ -4,21 +4,28 @@
 >
 > Every question must connect to a concrete implementation decision that affects cost, complexity, or timeline.
 
+## Stop Conditions
+
+Do NOT continue questioning if:
+- The remaining decisions do not affect architecture or cost.
+- The implementation path is already constrained.
+- Additional questions only optimize preferences, not correctness.
+
 ---
 
-## 🧠 Core Principles
+## Core Principles
 
 ### 1. Questions Reveal Consequences
 
 A good question is not "What color do you want?" but:
 
 ```markdown
-❌ BAD: "What authentication method?"
-✅ GOOD: "Should users sign up with email/password or social login?
+BAD: "What authentication method?"
+GOOD: "Should users sign up with email/password or social login?
 
    Impact:
-   - Email/Pass → Need password reset, hashing, 2FA infrastructure
-   - Social → OAuth providers, user profile mapping, less control
+   - Email/Pass -> Need password reset, hashing, 2FA infrastructure
+   - Social -> OAuth providers, user profile mapping, less control
 
    Trade-off: Security vs. Development time vs. User friction"
 ```
@@ -32,7 +39,7 @@ First understand **where** this request fits:
 | **Greenfield** (new project) | Foundation decisions: stack, hosting, scale |
 | **Feature Addition** | Integration points, existing patterns, breaking changes |
 | **Refactor** | Why refactor? Performance? Maintainability? What's broken? |
-| **Debug** | Symptoms → Root cause → Reproduction path |
+| **Debug** | Symptoms -> Root cause -> Reproduction path |
 
 ### 3. Minimum Viable Questions
 
@@ -48,22 +55,22 @@ After Question:
 └── Path Confirmed: Do X (5 min)
 ```
 
-If a question doesn't reduce implementation paths → **DELETE IT**.
+If a question doesn't reduce implementation paths -> **DELETE IT**.
 
 ### 4. Questions Generate Data, Not Assumptions
 
 ```markdown
-❌ ASSUMPTION: "User probably wants Stripe for payments"
-✅ QUESTION: "Which payment provider fits your needs?
+ASSUMPTION: "User probably wants Stripe for payments"
+QUESTION: "Which payment provider fits your needs?
 
-   Stripe → Best documentation, 2.9% + $0.30, US-centric
-   LemonSqueezy → Merchant of Record, 5% + $0.50, global taxes
-   Paddle → Complex pricing, handles EU VAT, enterprise focus"
+   Stripe -> Best documentation, 2.9% + $0.30, US-centric
+   LemonSqueezy -> Merchant of Record, 5% + $0.50, global taxes
+   Paddle -> Complex pricing, handles EU VAT, enterprise focus"
 ```
 
 ---
 
-## 📋 Question Generation Algorithm
+## Question Generation Algorithm
 
 ```
 INPUT: User request + Context (greenfield/feature/refactor/debug)
@@ -93,16 +100,16 @@ INPUT: User request + Context (greenfield/feature/refactor/debug)
 
 ---
 
-## 🎯 Domain-Specific Question Banks
+## Domain-Specific Question Banks
 
 ### E-Commerce
 
 | Question | Why It Matters | Trade-offs |
 |----------|----------------|------------|
-| **Single or Multi-vendor?** | Multi-vendor → Commission logic, vendor dashboards, split payments | +Revenue, -Complexity |
+| **Single or Multi-vendor?** | Multi-vendor -> Commission logic, vendor dashboards, split payments | +Revenue, -Complexity |
 | **Inventory Tracking?** | Needs stock tables, reservation logic, low-stock alerts | +Accuracy, -Development time |
-| **Digital or Physical Products?** | Digital → Download links, no shipping | Physical → Shipping APIs, tracking |
-| **Subscription or One-time?** | Subscription → Recurring billing, dunning, proration | +Revenue, -Complexity |
+| **Digital or Physical Products?** | Digital -> Download links, no shipping | Physical -> Shipping APIs, tracking |
+| **Subscription or One-time?** | Subscription -> Recurring billing, dunning, proration | +Revenue, -Complexity |
 
 ### Authentication
 
@@ -117,28 +124,28 @@ INPUT: User request + Context (greenfield/feature/refactor/debug)
 
 | Question | Why It Matters | Trade-offs |
 |----------|----------------|------------|
-| **WebSocket or Polling?** | WS → Server scaling, connection management | Polling → Simpler, higher latency |
-| **Expected Concurrent Users?** | <100 → Single server, >1000 → Redis pub/sub, >10k → specialized infra | +Scale, -Complexity |
+| **WebSocket or Polling?** | WS -> Server scaling, connection management | Polling -> Simpler, higher latency |
+| **Expected Concurrent Users?** | <100 -> Single server, >1000 -> Redis pub/sub, >10k -> specialized infra | +Scale, -Complexity |
 | **Message Persistence?** | History tables, storage costs, pagination | +UX, -Storage |
-| **Ephemeral or Durable?** | Ephemeral → In-memory, Durable → Database write before emit | +Reliability, -Latency |
+| **Ephemeral or Durable?** | Ephemeral -> In-memory, Durable -> Database write before emit | +Reliability, -Latency |
 
 ### Content/CMS
 
 | Question | Why It Matters | Trade-offs |
 |----------|----------------|------------|
-| **Rich Text or Markdown?** | Rich Text → Sanitization, XSS risks | Markdown → Simple, no WYSIWYG |
+| **Rich Text or Markdown?** | Rich Text -> Sanitization, XSS risks | Markdown -> Simple, no WYSIWYG |
 | **Draft/Publish Workflow?** | Status field, scheduled jobs, versioning | +Control, -Complexity |
 | **Media Handling?** | Upload endpoints, storage, optimization | +Features, -Development time |
 | **Multi-language?** | i18n tables, translation UI, fallback logic | +Reach, -Complexity |
 
 ---
 
-## 📐 Dynamic Question Template
+## 1. The Strategy of Inquiry
 
 ```markdown
 Based on your request for [DOMAIN] [FEATURE]:
 
-## 🔴 CRITICAL (Blocking Decisions)
+## CRITICAL (Blocking Decisions)
 
 ### 1. **[DECISION POINT]**
 
@@ -158,14 +165,14 @@ Based on your request for [DOMAIN] [FEATURE]:
 
 ---
 
-## 🟡 HIGH-LEVERAGE (Affects Implementation)
+## HIGH-LEVERAGE (Affects Implementation)
 
 ### 2. **[DECISION POINT]**
 [Same format]
 
 ---
 
-## 🟢 NICE-TO-HAVE (Edge Cases)
+## NICE-TO-HAVE (Edge Cases)
 
 ### 3. **[DECISION POINT]**
 [Same format]
@@ -173,7 +180,7 @@ Based on your request for [DOMAIN] [FEATURE]:
 
 ---
 
-## 🔄 Iterative Questioning
+## Iterative Questioning
 
 ### First Pass (3-5 Questions)
 Focus on **blocking decisions**. Don't proceed without answers.
@@ -190,7 +197,7 @@ When functionality works:
 
 ---
 
-## 🎭 Example: Full Question Generation
+## Example: Full Question Generation
 
 ```
 USER REQUEST: "Build an Instagram clone"
@@ -209,29 +216,29 @@ STEP 2: Decision Points
 STEP 3: Generate Questions (Priority)
 
 P0 (Blocking):
-1. Storage Strategy → Affects architecture, cost, speed
-2. Feed Algorithm → Affects database queries, complexity
-3. Auth Method → Affects dev time, UX, security
+1. Storage Strategy -> Affects architecture, cost, speed
+2. Feed Algorithm -> Affects database queries, complexity
+3. Auth Method -> Affects dev time, UX, security
 
 P1 (High-leverage):
-4. Real-time Notifications → WebSocket vs polling
-5. Media Processing → Client-side vs server-side optimization
+4. Real-time Notifications -> WebSocket vs polling
+5. Media Processing -> Client-side vs server-side optimization
 
 P2 (Deferable):
-6. Story/Reels → Major feature creep, defer to v2
-7. DM/Chat → Separate subsystem, defer to v2
+6. Story/Reels -> Major feature creep, defer to v2
+7. DM/Chat -> Separate subsystem, defer to v2
 
 STEP 4: Format Output
 ```
 
 ---
 
-## 📊 Generated Output (Example)
+## Generated Output (Example)
 
 ```
 Based on your Instagram clone request:
 
-## 🔴 CRITICAL DECISIONS (Cannot Proceed Without Answers)
+## CRITICAL DECISIONS (Cannot Proceed Without Answers)
 
 ### 1. **Photo Storage Strategy**
 
@@ -291,7 +298,7 @@ Based on your Instagram clone request:
 
 ---
 
-## 🟡 HIGH-LEVERAGE (Affects Architecture)
+## HIGH-LEVERAGE (Affects Architecture)
 
 ### 4. **Real-time Notifications**
 
@@ -312,7 +319,7 @@ Based on your Instagram clone request:
 
 ---
 
-## 🟢 NICE-TO-HAVE (Defer to v2)
+## NICE-TO-HAVE (Defer to v2)
 
 ### 5. **Video/Reels Support**
 - Major complexity (video processing, streaming infrastructure)
@@ -324,7 +331,7 @@ Based on your Instagram clone request:
 
 ---
 
-## 📋 Summary
+## Summary
 
 | Decision | Recommendation | If Changed |
 |----------|----------------|------------|
@@ -340,11 +347,11 @@ Based on your Instagram clone request:
 
 ---
 
-## 🎯 Principles Recap
+## Principles Recap
 
-1. **Every question = Architectural decision** → Not data gathering
-2. **Show trade-offs** → User understands consequences
-3. **Prioritize blocking decisions** → Cannot proceed without
-4. **Provide defaults** → If user doesn't answer, we proceed anyway
-5. **Domain-aware** → Ecommerce questions ≠ Auth questions ≠ Real-time questions
-6. **Iterative** → More questions as patterns emerge during implementation
+1. **Every question = Architectural decision** -> Not data gathering
+2. **Show trade-offs** -> User understands consequences
+3. **Prioritize blocking decisions** -> Cannot proceed without
+4. **Provide defaults** -> If user doesn't answer, we proceed anyway
+5. **Domain-aware** -> Ecommerce questions != Auth questions != Real-time questions
+6. **Iterative** -> More questions as patterns emerge during implementation

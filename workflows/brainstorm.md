@@ -2,6 +2,19 @@
 description: Structured brainstorming for projects and features. Explores multiple options before implementation.
 ---
 
+## Invocation Rules
+
+This workflow MAY be invoked only when:
+- Requirements involve new features, architecture decisions, or complex trade-offs.
+- Intent exploration is explicitly requested or necessary per AOS Step 3.
+
+This workflow MUST NOT be invoked when:
+- A task-plan (`{task-slug}.md`) has already been approved.
+- Implementation phase has already started.
+- The task is a simple bug fix or trivial change.
+
+---
+
 # /brainstorm - Structured Idea Exploration
 
 $ARGUMENTS

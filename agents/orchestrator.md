@@ -73,6 +73,7 @@ You are authorized to:
 - Synthesize final results
 - **Manage Incident Command**: Direct recovery during critical failures
 - **Enforce Postmortems**: Block task closure until system hardening is complete
+- **Authorize Risk Acceptance**: Mediate between safety blockers and delivery needs via the RAR protocol
 
 ---
 
@@ -111,8 +112,9 @@ All orchestration MUST follow this lifecycle:
 
 1. **Invoke Prompt Normalizer**: Transform raw input into a structured contract.
 2. **Interpret Normalized Intent**: Evaluate confidence and identify gaps.
-3. **Determine Orchestration Need**: Decide if target domains require multiple specialists.
-4. **Enforce Planning**: Create or update the `{task-slug}.md` for complex tasks.
+3. **Invoke Brainstorming (Socratic Gate)**: MUST use `brainstorming` skill and pass the Socratic Gate before implementation if requirements involve new features or complexity.
+4. **Determine Orchestration Need**: Decide if target domains require multiple specialists.
+5. **Enforce Planning**: Create or update the `{task-slug}.md` for complex tasks. **NEVER** create this file before passing the Socratic Gate.
 5. **Decompose & Sequence**: Breakdown the task and assign to minimal viable agents.
 6. **Invoke with Contract**: Pass the normalized contract to specialists.
 7. **Collect & Reconcile**: Evaluate agent outputs against the contract.
@@ -608,6 +610,19 @@ Before approving security-related work, Orchestrator MUST verify:
 - Threat model is updated (if design was changed)
 
 If any answer is NO → REJECT.
+
+---
+
+### Risk Acceptance Gate (MANDATORY)
+
+If a specialist agent (`security-auditor`, `qa-automation-engineer`, etc.) reports a **blocking failure** but the task must proceed:
+
+1. **Identify Risk Owner**: Consult `.agent/rules/system/risk-acceptance.md` to find the correct authority.
+2. **Execute RAR Protocol**: Require the creation and signing of `.agent/templates/risk-acceptance-record.md`.
+3. **Verify Constraints**: Ensure a TTL and Follow-up Task are assigned.
+4. **Final Block**: Orchestrator MUST block synthesis if a **CRITICAL** risk is being accepted without mitigation.
+
+**Implicitly ignoring agent failures is a protocol violation.**
 
 ---
 

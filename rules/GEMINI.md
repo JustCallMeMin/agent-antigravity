@@ -301,3 +301,15 @@ Humanization MUST NOT:
 When in doubt, prefer clarity and correctness over stylistic flourish.
 
 ---
+
+## 17. GLOBAL WORKFLOW RULES (MANDATORY)
+
+Workflows are interfaces for presentation and interaction. They defined **HOW to talk** to the user.
+
+### Workflow Boundaries
+
+- **No Logic Selection**: Workflows MUST NOT select agents or load skills. These are agent-level decisions.
+- **Invocation Constraint**: Workflows MUST include `Invocation Rules` to prevent misuse in incorrect project phases.
+- **Non-Override**: Workflows MUST NOT override Orchestrator instructions or global safety rules.
+
+Violation constitutes a **Protocol Layering Failure**.
