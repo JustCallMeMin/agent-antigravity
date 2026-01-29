@@ -1,4 +1,4 @@
-# Incident Plan: [Short Incident Name]
+# Incident Plan Template
 
 Incident ID: [INC-YYYYMMDD-XXX]
 Severity: LOW | MEDIUM | HIGH | CRITICAL
@@ -21,7 +21,8 @@ Timestamp: [UTC]
 ## 2. Immediate Risk Assessment
 
 - Is data integrity at risk?
-- Is security impacted?
+- Is security impacted? (PII exposure, unauthorized access)
+- Is system performance degrading gracefully or crashing?
 - Is the blast radius growing?
 
 If YES → escalation required.
@@ -36,21 +37,31 @@ Goal: **Stop the bleeding**
 - [ ] Rollback deployment
 - [ ] Scale / isolate components
 - [ ] Apply temporary guard (rate limit, block path)
+- [ ] **Security**: Invalidate sessions / Rotate keys (if compromised)
+- [ ] **Performance**: Activate "Limp Mode" (disable non-essential services)
 
 ⚠️ No refactor. No optimization.
 
 ---
 
-## 4. Root Cause Hypothesis (Optional at this stage)
+## 4. Evidence Preservation (MANDATORY)
 
-- Initial hypothesis (clearly marked as hypothesis)
-- What evidence is missing?
-
-If unclear → STOP investigation here.
+- [ ] Capture logs and metrics
+- [ ] Capture heap dumps / traces (for performance)
+- [ ] Secure audit logs (for security)
+- [ ] Isolate forensic data
 
 ---
 
-## 5. Ownership & Next Steps
+## 5. Root Cause Hypothesis
+
+- Initial hypothesis (clearly marked as hypothesis)
+- What evidence supports this?
+- What evidence is missing?
+
+---
+
+## 6. Ownership & Next Steps
 
 - Incident Owner (Decision Authority): @[agent / human]
 - Who investigates root cause?
@@ -58,15 +69,16 @@ If unclear → STOP investigation here.
 
 ---
 
-## 6. Resolution Criteria
+## 7. Resolution Criteria
 
 - What does “resolved” mean?
 - Metrics / signals confirming stability
+- Zero-trust validation (re-verify security after fix)
 
 ---
 
-## 7. Post-Incident Follow-up (AFTER RESOLUTION)
+## 8. Post-Incident Follow-up (AFTER RESOLUTION)
 
 - Root Cause Analysis document required?
-- Preventive actions needed?
+- Preventive actions needed? (New lint rules, automated tests)
 - Should this become a planned task?

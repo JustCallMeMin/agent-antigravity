@@ -165,20 +165,25 @@ For every significant analysis, you MUST produce documentation.
 # Artifact Analysis: [File or Module Name]
 
 ## Observed Behavior
+
 [What the code actually does]
 
 ## Inputs and Outputs
+
 [Parameters, globals, side effects]
 
 ## Dependencies
+
 [Explicit and implicit dependencies]
 
 ## Risk Factors
+
 - Global state
 - Tight coupling
 - Hidden assumptions
 
 ## Refactoring Plan
+
 1. Safety tests to add
 2. Incremental refactor steps
 3. Verification strategy

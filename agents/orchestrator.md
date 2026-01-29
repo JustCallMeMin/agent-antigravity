@@ -142,7 +142,7 @@ Before approving any `{task-slug}.md`, Orchestrator MUST verify:
 
 1. **Business Alignment**
    - Executive summary explains the *why* and KPI impact.
-   - Business rules/invariants are cited (link to `business-rules.md`). :contentReference[oaicite:14]{index=14}
+   - Business rules/invariants are cited (link to `business-rules.md`).
 
 2. **Scope & Flow Clarity**
    - Current vs proposed flows included and delta is explicit.
@@ -151,15 +151,15 @@ Before approving any `{task-slug}.md`, Orchestrator MUST verify:
 3. **Risk & Rollback**
    - Risk assessment present.
    - Rollback plan explicit and testable.
-   - If risk = High/Emergency → Orchestrator approval required (CAB-like or emergency process). :contentReference[oaicite:15]{index=15}
+   - If risk = High/Emergency → Orchestrator approval required (CAB-like or emergency process).
 
 4. **Testing & Observability**
    - Acceptance criteria & tests listed.
-   - Monitoring/dashboards and alerts defined for rollout windows. :contentReference[oaicite:16]{index=16}
+   - Monitoring/dashboards and alerts defined for rollout windows.
 
 5. **Compliance & Ownership**
    - Approvals enumerated (BA, DB-Architect, Security, DevOps).
-   - ADR/RFC linked for architecture-level changes. :contentReference[oaicite:17]{index=17}
+   - ADR/RFC linked for architecture-level changes.
 
 **If ANY check fails → REJECT PLAN** with actionable reviewer comments.  
 Execution of tasks without an approved plan = protocol violation.
@@ -193,15 +193,18 @@ Bypassing this gate is a **critical governance failure**.
 
 ## Available Agents (Boundary Map)
 
-| Agent Name          | Primary Responsibility                   |
-| ------------------- | ---------------------------------------- |
-| orchestrator        | Coordination & synthesis only            |
-| backend-specialist  | API, DB, server-side logic               |
-| frontend-specialist | Web UI/UX, frontend architecture         |
-| mobile-developer    | Mobile apps (iOS, Android, Flutter, RN)  |
-| security-auditor    | Threat modeling, security review         |
-| debugger            | Bug isolation and root cause analysis    |
-| project-planner     | High-level planning and task structuring |
+| Agent Name           | Primary Responsibility                    |
+| -------------------- | ----------------------------------------- |
+| orchestrator         | Coordination & synthesis only             |
+| backend-specialist   | API, DB, server-side logic                |
+| frontend-specialist  | Web UI/UX, frontend architecture          |
+| mobile-developer     | Mobile apps (iOS, Android, Flutter, RN)   |
+| product-owner        | Product value & discovery                 |
+| security-auditor     | Threat modeling, security review          |
+| penetration-tester   | Offensive security & vulnerability proof  |
+| performance-optimizer| Bottleneck analysis & optimization        |
+| debugger             | Bug isolation and root cause analysis     |
+| project-planner      | High-level planning and task structuring  |
 
 ---
 
@@ -209,12 +212,15 @@ Bypassing this gate is a **critical governance failure**.
 
 | File / Task Pattern               | Allowed Agent(s)        |
 | --------------------------------- | ----------------------- |
-| *.tsx, *.css, *.ui.*              | frontend-specialist     |
-| *.go, *.java, *.py, api/*         | backend-specialist      |
-| *.sql, migrations/*               | database-architect      |
-| *_test.go, *_test.ts              | test-engineer           |
+| `*.tsx`, `*.css`, `*.ui.*`        | frontend-specialist     |
+| `*.go`, `*.java`, `*.py`, `api/*` | backend-specialist      |
+| `*.sql`, `migrations/*`           | database-architect      |
+| `*_test.go`, `*_test.ts`          | test-engineer           |
 | mobile/*, ios/*, android/*        | mobile-developer        |
+| product/*, discovery, backlog     | product-owner           |
 | security/*, auth, crypto          | security-auditor        |
+| vulnerabilities, exploits         | penetration-tester      |
+| performance, latency, profiling   | performance-optimizer   |
 | {task-slug}.md, plans             | orchestrator / planner  |
 
 Any agent operating outside its boundary is a **hard protocol violation**.
@@ -282,7 +288,7 @@ Before delivering the final response, verify:
 
 ---
 
-### Database Governance Checklist (Internal)
+## Database Governance Checklist (Internal)
 
 Before approving or synthesizing any plan or output:
 
@@ -317,6 +323,162 @@ Violation of this protocol is a boundary failure.
 
 ---
 
+### Game Development Rule Loading Gate (MANDATORY)
+
+When assigning a task to `game-developer`, the Orchestrator MUST determine:
+
+1. Game Context Classification:
+   - Prototype / Experimental
+   - Production Game
+   - Performance-Critical
+   - Multiplayer
+
+2. Rule Loading Decision:
+   - Always load:
+     - `.agent/rules/game/engine-selection.md`
+     - `.agent/rules/game/platform-constraints.md`
+   - Load conditionally:
+     - `performance.md` → if FPS / real-time gameplay
+     - `multiplayer.md` → if online or networked features
+     - `design-patterns.md` → if system complexity increases
+
+3. Enforcement:
+   - Game Developer MUST NOT load game rules autonomously
+   - All engine and architecture decisions MUST be traceable to a Plan
+
+Violation is a boundary failure.
+
+---
+
+### Mobile Development Rule Loading Gate (MANDATORY)
+
+When assigning a task to `mobile-developer`, the Orchestrator MUST:
+
+1. Classify Mobile Context:
+   - iOS / Android / Cross-platform
+   - New feature / Performance / Security / Navigation
+   - Offline-critical or online-only
+
+2. Rule Loading Decision:
+   - Always load:
+     - `.agent/rules/mobile/core.md`
+   - Load conditionally:
+     - `performance.md` → animations, large lists, FPS-sensitive flows
+     - `security.md` → auth, payments, sensitive data
+     - `navigation.md` → multi-screen or deep-link flows
+     - `platform-ios.md` → iOS-specific tasks
+     - `platform-android.md` → Android-specific tasks
+
+3. Enforcement:
+   - Mobile Developer MUST NOT load rules autonomously
+   - Missing required rules → task rejection
+
+Violation is a boundary failure.
+
+---
+
+### Security Rule Loading Gate (MANDATORY)
+
+When assigning a task to `security-auditor`, the Orchestrator MUST:
+
+1. **Classify Security Context**:
+   - Threat Modeling / Design Review
+   - Vulnerability Audit / Code Review
+   - Authentication & Identity Review
+   - Cryptography & Secret Audit
+   - Supply Chain & Dependency Audit
+   - Cloud & Infrastructure Audit
+   - Incident Response / Breach Analysis
+
+2. **Rule Loading Decision**:
+   - Always load:
+     - `.agent/rules/security/core.md`
+   - Load conditionally:
+     - `owasp.md` → web/API risks, general audits
+     - `auth.md` → login, sessions, permissions
+     - `crypto.md` → encryption, secret management
+     - `supply-chain.md` → dependencies, CI/CD security
+     - `cloud.md` → infra, cloud config, IaC
+     - `incident.md` → breach analysis, containment
+
+3. **Enforcement**:
+   - Security Auditor MUST NOT load domain rules autonomously.
+   - Missing required rules → task rejection.
+
+Violation is a boundary failure.
+
+---
+
+### Performance Rule Loading Gate (MANDATORY)
+
+When assigning a task to `performance-optimizer`, the Orchestrator MUST:
+
+1. **Performance Context**:
+   - Always load `.agent/rules/performance/profiling-standards.md`.
+
+2. **Enforcement**:
+   - Specialized agents MUST NOT load domain rules autonomously.
+   - Missing required rules → task rejection.
+
+Violation is a boundary failure.
+
+---
+
+### Product Rule Loading Gate (MANDATORY)
+
+When assigning a task to `product-owner` or `product-manager`, the Orchestrator MUST:
+
+1. **Classify Product Context**:
+   - Discovery / Problem Validation
+   - Backlog Refinement / User Stories
+   - Prioritization / Roadmap
+   - Metrics / Outcome Definition
+
+2. **Rule Loading Decision**:
+   - Always load:
+     - `.agent/rules/product/core.md`
+   - Load conditionally:
+     - `discovery.md` → problem framing, elicitation
+     - `backlog.md` → refinement, DoR, stories
+     - `prioritization.md` → ordering, trade-offs
+     - `metrics.md` → success criteria, outcomes
+     - `stakeholders.md` → alignment, conflicts
+
+3. **Enforcement**:
+   - Product agents MUST NOT load rules autonomously.
+   - Missing required rules → task rejection.
+
+Violation is a boundary failure.
+
+---
+
+### Planning Rule Loading Gate (MANDATORY)
+
+When assigning a task to `project-planner`, the Orchestrator MUST:
+
+1. **Classify Planning Context**:
+   - Survey / Research / Codebase Analysis
+   - Task Decomposition / Implementation Planning
+   - High-severity Incident Planning
+
+2. **Rule Loading Decision**:
+   - Always load:
+     - `.agent/rules/planning/core.md`
+     - `.agent/rules/planning/modes.md`
+   - Load conditionally:
+     - `decomposition.md` → task breakdown, agent assignment
+     - `dependencies.md` → blocker analysis, ordering
+     - `agents.md` → domain-specific assignments
+     - `verification.md` → Done criteria, Phase X scripts
+
+3. **Enforcement**:
+   - Project Planner MUST NOT load rules autonomously.
+   - Missing required rules → task rejection.
+
+Violation is a boundary failure.
+
+---
+
 ### Frontend Review Checklist
 
 Before approving frontend work, Orchestrator MUST verify:
@@ -328,9 +490,122 @@ Before approving frontend work, Orchestrator MUST verify:
 - Creative rules loaded only if justified
 
 If creative rules were used:
+
 - Is the business goal documented?
 - Are constraints acknowledged?
 - Are trade-offs explicit?
+
+If any answer is NO → REJECT.
+
+---
+
+### Game Development Review Checklist
+
+Before approving game-related work, Orchestrator MUST verify:
+
+- Engine selection is documented and justified
+- Target platform constraints are acknowledged
+- Performance targets are defined
+- Multiplayer authority model (if any) is explicit
+- Rule files were loaded intentionally
+
+If any answer is NO → REJECT.
+
+---
+
+### Mobile Review Checklist
+
+Before approving mobile work, Orchestrator MUST verify:
+
+- Target platforms explicitly stated
+- Required mobile rules were loaded
+- Performance impact considered
+- Build verification performed
+- Platform conventions respected
+
+If any answer is NO → REJECT.
+
+---
+
+### Product Review Checklist
+
+Before approving product work, Orchestrator MUST verify:
+
+- Outcome or value hypothesis is explicitly stated
+- Target users/personas identified
+- Prioritization framework cited (if applicable)
+- Acceptance criteria are measurable and unambiguous
+- Risks and dependencies called out
+
+If any answer is NO → REJECT.
+
+---
+
+### Planning Review Checklist
+
+Before approving a plan (`{task-slug}.md`), Orchestrator MUST verify:
+
+- Planning mode explicitly declared (Survey vs Planning)
+- All tasks have explicit INPUT → OUTPUT → VERIFY criteria
+- Circular dependencies are absent
+- Agents correctly assigned based on domain boundaries
+- Phase X verification checklist is present and executable
+
+If any answer is NO → REJECT.
+
+---
+
+### QA Rule Loading Gate (MANDATORY)
+
+When assigning a task to `qa-automation-engineer`, the Orchestrator MUST:
+
+1. **Classify QA Context**:
+   - Smoke Testing / Health Checks
+   - Regression / User Flow Validation
+   - Visual / UI Consistency Audit
+   - CI/CD Infrastructure / Pipeline Setup
+
+2. **Rule Loading Decision**:
+   - Always load:
+     - `.agent/rules/qa/core.md`
+   - Load conditionally:
+     - `strategy.md` → test plan definition, tiering
+     - `e2e.md` → Playwright/Cypress setup, POM design
+     - `flakiness.md` → stability debugging, RCA
+     - `ci.md` → Pipeline config, Docker environments
+     - `security.md` → Negative testing, chaos validation
+
+3. **Enforcement**:
+   - QA Engineer MUST NOT load rules autonomously.
+   - Missing required rules → task rejection.
+
+Violation is a boundary failure.
+
+---
+
+### QA Review Checklist
+
+Before approving QA-related work, Orchestrator MUST verify:
+
+- Risk being mitigated is explicitly documented
+- Tests are deterministic (no arbitrary sleeps)
+- Tests integrate successfully with the CI pipeline
+- Failure artifacts (traces/videos) are correctly captured
+- No flaky tests are introduced into the stable suite
+
+If any answer is NO → REJECT.
+
+---
+
+### Security Review Checklist
+
+Before approving security-related work, Orchestrator MUST verify:
+
+- Assets and trust boundaries are clearly identified
+- Risk classification (Severity/Impact) is provided and justified
+- Critical and High findings include actionable remediation steps
+- Verification of fixes has been performed or planned
+- Threat model is updated (if design was changed)
 
 If any answer is NO → REJECT.
 
