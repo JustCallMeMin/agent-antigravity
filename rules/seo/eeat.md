@@ -1,21 +1,30 @@
-# E-E-A-T: Trust & Authority Standards
+# E-E-A-T: Trust & Authority
 
-## 1. Defining E-E-A-T
-- **Experience**: First-hand knowledge and real-world testing.
-- **Expertise**: Professional credentials or proven track record.
-- **Authoritativeness**: The reputation of the author and the site.
-- **Trustworthiness**: Accuracy, honesty, transparency, and security.
+## The E-E-A-T Framework
 
-## 2. Signaling Authority
-- **Author Bios**: Every significant piece of content must have an author with a link to their bio/credentials.
-- **Source Attribution**: Cite reliable data sources and link to them.
-- **Fact-Checking**: Review content periodically for accuracy.
-- **Transparency**: Clear "About Us", "Contact", and "Privacy Policy" pages.
+Google's Quality Rater Guidelines focus on Experience, Expertise, Authoritativeness, and Trustworthiness.
 
-## 3. Brand Credibility
-- Ensure consistent information across the web (NAP: Name, Address, Phone).
-- Encourage and manage legitimate user reviews and mentions.
+| Principle | How to Demonstrate |
+|:---|:---|
+| **Experience** | First-hand knowledge, real-world testing, case studies, and personal stories. |
+| **Expertise** | Professional credentials, certifications, and years of specialized knowledge. |
+| **Authoritativeness** | Backlinks from reputable sites, citations, and recognition as a leader in the field. |
+| **Trustworthiness** | Secure site (HTTPS), clear contact info, transparent policies, and honest reviews. |
 
-## 4. Content Freshness
-- Update high-impact pages with "Updated on [Date]" signals.
-- Redirect or refresh outdated/obsolete content.
+---
+
+## E-E-A-T Action Plan
+
+- **Author Bios**: Every article MUST have a visible author bio with credentials and links to social profiles.
+- **Transparency**: Include "About Us", "Contact", and "Editorial Policy" pages.
+- **Citations**: Link to reputable sources when citing facts or statistics.
+- **Freshness**: Regularly update high-impact content and include "Last Updated" timestamps.
+
+---
+
+## Trust Signals
+
+- [ ] HTTPS enabled and valid.
+- [ ] No intrusive interstitials.
+- [ ] Clear disclosure of sponsored or affiliate content.
+- [ ] Positive user sentiment and reviews where applicable.

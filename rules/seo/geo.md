@@ -1,21 +1,40 @@
 # GEO: Generative Engine Optimization
 
-## 1. AI Search Mindset
-- AI models (LLMs) value **extractability** and **credibility**.
-- GEO is about becoming the "source of truth" for a specific query or entity.
+## The Paradigm Shift: SEO vs GEO
 
-## 2. RAG (Retrieval-Augmented Generation) Optimization
-- **Chunking Friendly**: Use clear, concise paragraphs and lists.
-- **Definitions First**: Start topics with "What is [X]" to satisfy initial retrieval.
-- **Direct Answers**: Provide an un-nuanced answer followed by a nuanced explanation.
+| Aspect | Traditional SEO | Generative Engine Optimization (GEO) |
+|:---|:---|:---|
+| **Goal** | Rank #1 in Google Search Results | Be cited as a primary source in AI responses |
+| **Platform** | Google, Bing, Yahoo | ChatGPT, Claude, Perplexity, Gemini |
+| **Metrics** | SERP Ranking, CTR, Traffic | Citation Rate, Entity Association, Authority |
+| **Focus** | Keyword density, Backlinks | Entities, Structured Data, Direct Answers |
 
-## 3. Citation & Attribution Strategy
-- Use unique, high-value data points that AI models will want to cite.
-- Maintain persistent entities (Brand Name, Unique Terms) so AI can associate them with authority.
+---
 
-## 4. Entity Mapping
-- Connect content to known entities in the knowledge graph.
-- Explicitly state relationships: "[Brand] is a [Category] specializing in [Niche]".
+## GEO Checklist
 
-## 5. Frequency & Recency
-- AI models with web-access prioritize "Live" signals and new information for current events/trends.
+To ensure AI search engines can extract and cite your content:
+
+- [ ] **FAQ Sections**: Provide direct, concise answers to common questions.
+- [ ] **Author Credentials**: Make it easy for AI to verify the source's authority.
+- [ ] **Source Attribution**: Include statistics and data with clear links to sources.
+- [ ] **Clear Definitions**: Define complex terms simply to become the "featured definition".
+- [ ] **Structured Facts**: Use tables and lists for data-heavy sections.
+
+---
+
+## Content That Gets Cited
+
+AI systems prefer content that is:
+- **Original**: Unique data, case studies, or findings.
+- **Authoritative**: Written by recognized experts with verifiable credentials.
+- **Fact-Dense**: High information-to-word ratio.
+- **Structured**: Easy to parse technically via Schema.org or semantic HTML.
+
+---
+
+## Principles of AI Extractability
+
+1. **Be Definitive**: State facts clearly rather than using vague or overly flowery language.
+2. **Use Headers as Questions**: Aligning headers with search queries helps AI match content to user prompts.
+3. **Consistency**: Ensure the same information is reinforced across multiple pages of the site.

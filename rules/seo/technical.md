@@ -1,21 +1,33 @@
-# Technical SEO: Infrastructure & Indexing
+# Technical SEO & Core Web Vitals
 
-## 1. Crawlability & Indexing
-- **Robots.txt & XML Sitemaps**: Ensure only meaningful pages are crawlable and regularly updated.
-- **Canonicalization**: Use `rel="canonical"` to prevent duplicate content issues.
-- **Status Codes**: 200 (Found), 301 (Permanent Redirect), 410 (Gone). Avoid 302s for permanent moves.
+## Core Web Vitals Targets
 
-## 2. Core Web Vitals (CWV)
-Target thresholds for search performance:
-- **LCP (Largest Contentful Paint)**: < 2.5s
-- **FID (First Input Delay)**: < 100ms
-- **CLS (Cumulative Layout Shift)**: < 0.1
+Maintain a high performance bar to ensure indexability and user satisfaction.
 
-## 3. Mobile Excellence
-- **Responsive Design**: Mandatory.
-- **Touch Targets**: Min 48x48px.
-- **Mobile Parity**: Ensure mobile and desktop serve identical content and metadata.
+| Metric | Good | Poor |
+|:---|:---|:---|
+| **LCP** (Largest Contentful Paint) | < 2.5s | > 4.0s |
+| **INP** (Interaction to Next Paint) | < 200ms | > 500ms |
+| **CLS** (Cumulative Layout Shift) | < 0.1 | > 0.25 |
 
-## 4. HTTPS & Security
-- Mandatory SSL/TLS.
-- Secure headers to prevent malicious injection that could lead to blacklisting.
+---
+
+## Technical SEO Checklist
+
+All production pages MUST satisfy:
+
+- [ ] **XML Sitemap**: Correctly structured and submitted to Search Console.
+- [ ] **robots.txt**: Configured to allow crawling of essential assets while protecting sensitive paths.
+- [ ] **Canonicalization**: Correct canonical tags to prevent duplicate content issues.
+- [ ] **HTTPS**: Valid SSL/TLS certificate is mandatory for trust and ranking.
+- [ ] **Mobile-Friendly**: Responsive design that passes the Mobile-Friendly test.
+- [ ] **Indexability**: No accidental `noindex` tags on priority pages.
+- [ ] **Performance**: Passing the Core Web Vitals thresholds defined above.
+
+---
+
+## Technical Audit Best Practices
+
+- Use `lighthouse` or `pagespeed-insights` for performance measurement.
+- Verify structured data validity using the Schema Markup Validator.
+- Ensure all resources (CSS, JS, Images) are crawlable.

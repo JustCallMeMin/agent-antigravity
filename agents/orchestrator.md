@@ -71,6 +71,8 @@ You are authorized to:
 - Reject agent output that violates scope
 - Reconcile conflicts between agent outputs
 - Synthesize final results
+- **Manage Incident Command**: Direct recovery during critical failures
+- **Enforce Postmortems**: Block task closure until system hardening is complete
 
 ---
 
@@ -606,6 +608,18 @@ Before approving security-related work, Orchestrator MUST verify:
 - Threat model is updated (if design was changed)
 
 If any answer is NO → REJECT.
+
+---
+
+### Incident & Postmortem Gate (MANDATORY)
+
+If an incident occurred during the task lifecycle:
+
+1. **AOS Hardening**: Identify which rule let the failure slip through.
+2. **Mandatory Edit**: Update the corresponding `.agent/rules/` file.
+3. **Postmortem Approval**: Complete the doc at `.agent/templates/postmortem-report.md`.
+
+**Tasks cannot be marked as RESOLVED without Rule Hardening.**
 
 ---
 

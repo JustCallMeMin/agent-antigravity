@@ -1,20 +1,32 @@
-# Schema.org & Structured Data
+# Structured Data & Schema Markup
 
-## 1. Purpose of Schema
-- To help search engines understand the *meaning* of the content, not just the keywords.
-- To enable rich snippets (stars, prices, steps) in search results.
+## Purpose
 
-## 2. Mandatory Formats
-- Always prefer **JSON-LD** over Microdata.
-- Place JSON-LD script in the `<head>` or at the end of the `<body>`.
+Use JSON-LD to provide explicit clues about the meaning of a page to search engines and AI systems.
 
-## 3. Essential Types
-- **Organization**: For brand identity and knowledge graph.
-- **Article/BlogPosting**: For content discovery.
-- **Product & Offer**: For Transactional intent.
-- **Review & AggregateRating**: For social proof snippets.
-- **BreadcrumbList**: For site structure in SERPs.
+---
 
-## 4. Validation
-- All schema must pass the [Schema Markup Validator](https://validator.schema.org/).
-- Ensure no conflicting attributes between different schema types on the same page.
+## Mandatory Schemas (where applicable)
+
+- **Organization**: Define the entity behind the content.
+- **WebSite / WebPage**: Basic structure for every page.
+- **Article / BlogPosting**: For all content-driven pages, including `datePublished` and `author`.
+- **FAQPage**: Extremely high value for GEO and Google Rich Results.
+- **BreadcrumbList**: Helps search engines understand site hierarchy.
+
+---
+
+## Schema Quality Rules
+
+- [ ] **Completeness**: Fill in all recommended fields, not just the required ones.
+- [ ] **Consistency**: Ensure data in JSON-LD matches what is visible on the page.
+- [ ] **Validity**: MUST pass the Schema Markup Validator or Google Rich Results Test.
+- [ ] **Author Entity**: Link authors to their profile pages or social media to support E-E-A-T.
+
+---
+
+## Technical Implementation
+
+- Prefer **JSON-LD** over Microdata or RDFa.
+- Inject schema as early as possible in the `<head>` or at the end of the `<body>`.
+- Use unique IDs (`@id`) to connect different entities across the site.
