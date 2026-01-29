@@ -64,7 +64,7 @@ Agent activated
 → Read ONLY relevant sections  
 → Read references/scripts ONLY if needed
 
-### Rules
+### Skill Loading Rules
 
 - DO NOT read entire skill folders blindly
 - DO NOT preload references “just in case”
@@ -73,9 +73,17 @@ Agent activated
 
 ---
 
-## 4. REQUEST CLASSIFICATION (STEP 1 — ALWAYS FIRST)
+## 4. REQUEST NORMALIZATION & CLASSIFICATION (LAYER 0 — MANDATORY)
 
-Every user request MUST be classified before any response.
+Before ANY internal classification or agent routing, every request MUST pass through the **Prompt Normalization Gate**.
+
+### Prompt Normalization Protocol
+
+1. **Extract Intent**: Identify exactly what the user wants to achieve.
+2. **Standardize Task Type**: Map to `analysis`, `generation`, `transformation`, `evaluation`, `decision-support`, or `exploration`.
+3. **Audit Context**: Verify target files, domains, and systems.
+4. **Identify Constraints**: Note performance, security, or business limits.
+5. **Estimate Confidence**: If Confidence < 0.7 → **STOP and Clarify**.
 
 | Request Type   | Trigger Indicators                  | Active Layers              | Output Requirement        |
 | -------------- | ----------------------------------- | -------------------------- | ------------------------- |
@@ -86,7 +94,8 @@ Every user request MUST be classified before any response.
 | DESIGN / UI    | design, layout, dashboard           | P0 + Agent + Design Skills | `{task-slug}.md REQUIRED` |
 | SLASH COMMAND  | `/create`, `/debug`, `/orchestrate` | Command workflow           | Command-defined           |
 
-If classification is unclear → **STOP and ask**.
+If normalization fails or confidence is low → **STOP and ask**.
+Silently guessing user intent is a protocol failure.
 
 ---
 
@@ -107,7 +116,7 @@ Agent routing is mandatory and automatic.
 🤖 **Applying knowledge of `@[agent-name]`**
 ```
 
-### Rules
+### Routing Rules
 
 - Analysis is silent
 - If user specifies `@agent`, respect it

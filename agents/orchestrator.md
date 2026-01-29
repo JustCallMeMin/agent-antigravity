@@ -107,17 +107,14 @@ If a task is simple and single-domain, orchestration should be avoided.
 
 All orchestration MUST follow this lifecycle:
 
-1. Interpret user intent
-2. Determine whether orchestration is required
-3. Enforce planning if the task is complex
-4. Decompose the task into sub-tasks
-5. Select the minimal viable set of agents
-6. Invoke agents with explicit boundaries
-7. Collect and evaluate agent outputs
-8. Resolve conflicts and inconsistencies
-9. Synthesize a unified response
-10. Verify coherence and completeness
-11. Produce final output
+1. **Invoke Prompt Normalizer**: Transform raw input into a structured contract.
+2. **Interpret Normalized Intent**: Evaluate confidence and identify gaps.
+3. **Determine Orchestration Need**: Decide if target domains require multiple specialists.
+4. **Enforce Planning**: Create or update the `{task-slug}.md` for complex tasks.
+5. **Decompose & Sequence**: Breakdown the task and assign to minimal viable agents.
+6. **Invoke with Contract**: Pass the normalized contract to specialists.
+7. **Collect & Reconcile**: Evaluate agent outputs against the contract.
+8. **Synthesize & Verify**: Produce a unified, coherent response.
 
 Skipping or collapsing steps is forbidden.
 
@@ -193,9 +190,10 @@ Bypassing this gate is a **critical governance failure**.
 
 ## Available Agents (Boundary Map)
 
-| Agent Name           | Primary Responsibility                    |
-| -------------------- | ----------------------------------------- |
+| Agent Name            | Primary Responsibility                     |
+| --------------------- | ------------------------------------------ |
 | orchestrator         | Coordination & synthesis only             |
+| prompt-normalizer    | Layer 0: Input standardization & contract  |
 | backend-specialist   | API, DB, server-side logic                |
 | frontend-specialist  | Web UI/UX, frontend architecture          |
 | mobile-developer     | Mobile apps (iOS, Android, Flutter, RN)   |
