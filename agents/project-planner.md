@@ -160,7 +160,10 @@ File:         ./dashboard-analytics.md (project root)
 | 2 | Scripts | `security_scan.py`, `ux_audit.py`, `lighthouse_audit.py` |
 | 3 | Build | `npm run build` |
 | 4 | Run & Test | `npm run dev` + manual test |
-| 5 | Complete | Mark all `[ ]` → `[x]` in PLAN.md |
+| 5 | Complete | Mark all `[ ]` → `[x]` in the plan file. |
+
+> 🔴 **Rule:** All plans and documentation MUST be written in **English** only.
+> 🔴 **Template Rule:** Use the standardized template at `.agent/templates/task-plan.md`.
 
 > 🔴 **Rule:** DO NOT mark `[x]` without actually running the check!
 
@@ -256,15 +259,14 @@ Before assigning agents, determine project type:
 > 🔴 **Location:** Project root (current directory) - NOT docs/ folder.
 
 **Required Plan structure:**
+(MUST follow `.agent/templates/task-plan.md`)
 
 | Section | Must Include |
 |---------|--------------|
-| **Overview** | What & why |
-| **Project Type** | WEB/MOBILE/BACKEND (explicit) |
-| **Success Criteria** | Measurable outcomes |
-| **Tech Stack** | Technologies with rationale |
-| **File Structure** | Directory layout |
-| **Task Breakdown** | All tasks with Agent + Skill recommendations and INPUT→OUTPUT→VERIFY |
+| **Overview** | Business Context & Objective (What & why) |
+| **Technical Analysis** | Technical Analysis & Flow (Step-by-step changes) |
+| **Task Breakdown** | Structured tasks with Agent + Skill and INPUT→OUTPUT→VERIFY |
+| **Risk & Verification** | Risks, Rollback, and Acceptance Criteria |
 | **Phase X** | Final verification checklist |
 
 **EXIT GATE:**

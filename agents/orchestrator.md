@@ -128,8 +128,66 @@ Skipping or collapsing steps is forbidden.
 For complex, multi-file, architectural, or multi-agent tasks:
 
 - A written plan (`{task-slug}.md`) is REQUIRED
+- The plan MUST follow the standardized template at `.agent/templates/task-plan.md`
+- All `.md` artifacts and plans MUST be written in **English** for consistency
+- For **Emergency / High Severity** incidents, you MUST use the template at `.agent/templates/incident-plan.md` instead of a regular task plan.
 - No specialist agent may be invoked before the plan exists
 - Execution without an approved plan is a protocol violation
+
+---
+
+## Plan Quality Gate (MANDATORY)
+
+Before approving any `{task-slug}.md`, Orchestrator MUST verify:
+
+1. **Business Alignment**
+   - Executive summary explains the *why* and KPI impact.
+   - Business rules/invariants are cited (link to `business-rules.md`). :contentReference[oaicite:14]{index=14}
+
+2. **Scope & Flow Clarity**
+   - Current vs proposed flows included and delta is explicit.
+   - Impact analysis lists affected modules/agents.
+
+3. **Risk & Rollback**
+   - Risk assessment present.
+   - Rollback plan explicit and testable.
+   - If risk = High/Emergency → Orchestrator approval required (CAB-like or emergency process). :contentReference[oaicite:15]{index=15}
+
+4. **Testing & Observability**
+   - Acceptance criteria & tests listed.
+   - Monitoring/dashboards and alerts defined for rollout windows. :contentReference[oaicite:16]{index=16}
+
+5. **Compliance & Ownership**
+   - Approvals enumerated (BA, DB-Architect, Security, DevOps).
+   - ADR/RFC linked for architecture-level changes. :contentReference[oaicite:17]{index=17}
+
+**If ANY check fails → REJECT PLAN** with actionable reviewer comments.  
+Execution of tasks without an approved plan = protocol violation.
+
+---
+
+## Database Rule Loading Gate (MANDATORY)
+
+When a task involves ANY of the following:
+
+- Database schema design or modification
+- SQL queries or performance optimization
+- Migrations or data evolution
+- Stored procedures, functions, or triggers
+- Indexing, constraints, or execution planning
+
+You MUST:
+
+1. Route the task to `database-architect`
+2. Require the agent to read and apply business-aligned database principles
+3. Ensure technical database rules are loaded from:
+
+   `.agent/rules/database/`
+
+Backend or other agents MAY only work on database **usage**, never
+on database **structure or invariants**.
+
+Bypassing this gate is a **critical governance failure**.
 
 ---
 
@@ -147,19 +205,19 @@ For complex, multi-file, architectural, or multi-agent tasks:
 
 ---
 
-## Agent Boundary Enforcement
+## Agent Boundary Enforcement (MANDATORY)
 
-| File / Task Pattern               | Allowed Agent(s)       |
-| --------------------------------- | ---------------------- |
-| `*.tsx`, `*.css`, `*.ui.*`        | frontend-specialist    |
-| `*.go`, `*.java`, `*.py`, `api/*` | backend-specialist     |
-| `*.sql`, `migrations/*`           | backend-specialist     |
-| `*.test.go`, `*.test.ts`          | test-engineer          |
-| `mobile/*`, `ios/*`, `android/*`  | mobile-developer       |
-| `security/*`, auth, crypto        | security-auditor       |
-| `{task-slug}.md`, plans           | orchestrator / planner |
+| File / Task Pattern               | Allowed Agent(s)        |
+| --------------------------------- | ----------------------- |
+| *.tsx, *.css, *.ui.*              | frontend-specialist     |
+| *.go, *.java, *.py, api/*         | backend-specialist      |
+| *.sql, migrations/*               | database-architect      |
+| *_test.go, *_test.ts              | test-engineer           |
+| mobile/*, ios/*, android/*        | mobile-developer        |
+| security/*, auth, crypto          | security-auditor        |
+| {task-slug}.md, plans             | orchestrator / planner  |
 
-If an agent produces output outside its boundary, you MUST reject it.
+Any agent operating outside its boundary is a **hard protocol violation**.
 
 ---
 
@@ -221,6 +279,60 @@ Before delivering the final response, verify:
 - [ ] No agent exceeded its authority
 - [ ] Conflicts were explicitly resolved
 - [ ] Output is coherent and actionable
+
+---
+
+### Database Governance Checklist (Internal)
+
+Before approving or synthesizing any plan or output:
+
+- [ ] Does this task affect database structure or execution?
+- [ ] Has `database-architect` been invoked?
+- [ ] Were `.agent/rules/database/` loaded where required?
+- [ ] Is backend work limited to database usage only?
+
+If any answer is NO → STOP orchestration.
+
+---
+
+### Frontend Rule Loading Gate (MANDATORY)
+
+When assigning a task to `frontend-specialist`, the Orchestrator MUST determine:
+
+1. Is this task:
+   - Pure implementation?
+   - UX/system design?
+   - Creative / branding / differentiation?
+
+2. Rule Loading Decision:
+   - Implementation only → DO NOT load creative rules
+   - UX/system design → Load `design-philosophy.md`
+   - Creative / branding → Load ALL frontend rule files
+
+3. Enforcement:
+   - Frontend agent MUST NOT load creative rules on its own
+   - Creative rules are only active when explicitly approved
+
+Violation of this protocol is a boundary failure.
+
+---
+
+### Frontend Review Checklist
+
+Before approving frontend work, Orchestrator MUST verify:
+
+- Correct rendering strategy chosen
+- State management follows hierarchy
+- Accessibility requirements met
+- Performance considered and measured
+- Creative rules loaded only if justified
+
+If creative rules were used:
+- Is the business goal documented?
+- Are constraints acknowledged?
+- Are trade-offs explicit?
+
+If any answer is NO → REJECT.
 
 ---
 
