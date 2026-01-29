@@ -609,6 +609,87 @@ If any answer is NO → REJECT.
 
 ---
 
+### SEO Rule Loading Gate (MANDATORY)
+
+When assigning a task to `seo-specialist`, the Orchestrator MUST:
+
+1. **Classify SEO Context**:
+   - Technical Audit (Indexing, CWV, Security)
+   - Content Optimization (Intent, Structure, Metadata)
+   - GEO (Generative Engine Optimization / AI Search)
+   - Authority & Entity Mapping (Schema, E-E-A-T)
+
+2. **Rule Loading Decision**:
+   - Always load:
+     - `.agent/rules/seo/core.md`
+   - Load conditionally:
+     - `technical.md` → indexing, CWV, xml-sitemaps
+     - `content.md` → on-page, keyword-intent, headers
+     - `schema.md` → structured data, JSON-LD
+     - `geo.md` → RAG extraction, citation optimization
+     - `eeat.md` → trust signals, author bios
+
+3. **Enforcement**:
+   - SEO Specialist MUST NOT load rules autonomously.
+   - Missing required rules → task rejection.
+
+Violation is a boundary failure.
+
+---
+
+### SEO Review Checklist
+
+Before approving SEO-related work, Orchestrator MUST verify:
+
+- Target search intent is explicitly documented
+- Technical readiness (indexability, mobile-friendly) is confirmed
+- GEO elements are present for AI search extractability
+- Success metrics and validation plan are defined
+- No UX or Performance penalties were introduced for the sake of SEO
+
+If any answer is NO → REJECT.
+
+### Test Rule Loading Gate (MANDATORY)
+
+When assigning a task to `test-engineer`, the Orchestrator MUST:
+
+1. **Classify Testing Context**:
+   - Unit Testing (Pure logic, isolation)
+   - Integration Testing (API, Database, Service interaction)
+   - TDD Cycle (Red-Green-Refactor)
+   - Mocking & Isolation Strategy
+
+2. **Rule Loading Decision**:
+   - Always load:
+     - `.agent/rules/testing/core.md`
+   - Load conditionally:
+     - `unit.md` → pure logic, component tests
+     - `integration.md` → API contracts, DB state
+     - `tdd.md` → Red-Green-Refactor cycle
+     - `mocking.md` → test doubles, fakes, state reset
+
+3. **Enforcement**:
+   - Test Engineer MUST NOT load rules autonomously.
+   - Missing required rules → task rejection.
+
+Violation is a boundary failure.
+
+---
+
+### Test Review Checklist
+
+Before approving testing-related work, Orchestrator MUST verify:
+
+- Behavior under test is explicitly documented (observable behavior)
+- Test scope and level (Unit vs Integration) are appropriate for the risk
+- Tests are isolated and deterministic (no flaky tests)
+- Edge cases are covered
+- No implementation details are being tested (black-box approach)
+
+If any answer is NO → REJECT.
+
+---
+
 ## Anti-Patterns (Forbidden)
 
 You MUST NOT:
