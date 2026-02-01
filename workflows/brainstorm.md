@@ -4,9 +4,10 @@ description: Structured brainstorming for projects and features. Explores multip
 
 ## Invocation Rules
 
-This workflow MAY be invoked only when:
+This workflow MAY be invoked when:
 - Requirements involve new features, architectural decisions, or complex trade-offs.
 - Intent exploration is explicitly requested or required by AOS decision gates.
+- User needs to explore design alternatives before committing to implementation.
 
 This workflow MUST NOT be invoked when:
 - A task-plan (`{task-slug}.md`) has already been approved.
@@ -23,8 +24,8 @@ $ARGUMENTS
 
 ## Purpose
 
-Activate structured idea exploration before committing to an implementation.
-This workflow is used to reduce uncertainty, compare approaches, and clarify intent.
+Turn vague ideas into fully formed designs through Socratic discovery and structured exploration.
+This workflow reduces uncertainty, compares approaches, and clarifies intent before any code is written.
 
 ---
 
@@ -32,91 +33,58 @@ This workflow is used to reduce uncertainty, compare approaches, and clarify int
 
 When `/brainstorm` is triggered:
 
-1. **Understand the goal**
-   - What problem are we solving?
-   - Who is the user or stakeholder?
-   - What constraints exist (technical, business, time)?
+1. **Execute Brainstorming Skill (MANDATORY)**
+   - **REQUIRED SKILL**: `brainstorming`
+   - The skill will guide the entire discovery process.
+   - Do NOT manually implement brainstorming logic.
 
-2. **Generate options**
-   - Provide 2–4 viable approaches when possible
-   - Describe each option clearly
-   - Include both conventional and unconventional ideas when relevant
+2. **Socratic Discovery**
+   - Ask questions **one at a time** to refine the idea.
+   - Prefer multiple choice questions when possible.
+   - Focus on: purpose, constraints, success criteria.
 
-3. **Compare and recommend**
-   - Summarize key trade-offs
-   - Identify dominant or risky factors
-   - Provide a reasoned recommendation
+3. **Explore Alternatives**
+   - Propose 2-3 different approaches with trade-offs.
+   - Present options conversationally with recommendation.
+   - Lead with the recommended option and explain why.
 
----
+4. **Present Design Incrementally**
+   - Break design into sections (200-300 words each).
+   - Ask after each section: "Does this look right so far?"
+   - Cover: architecture, components, data flow, error handling, testing.
 
-## Output Format
+5. **Document Design**
+   - Write validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`.
+   - Commit the design document.
 
-```markdown
-## Brainstorm: [Topic]
-
-### Context
-[Brief problem statement]
-
----
-
-### Option A: [Name]
-[Description]
-
-**Pros**
-- [Benefit 1]
-- [Benefit 2]
-
-**Cons**
-- [Drawback 1]
-
-**Effort**
-Low | Medium | High
+6. **Handoff to Implementation (Optional)**
+   - Ask: "Ready to set up for implementation?"
+   - If yes:
+     - Use `using-git-worktrees` to create isolated workspace.
+     - Use `writing-plans` to create detailed implementation plan.
 
 ---
 
-### Option B: [Name]
-[Description]
+## Output Expectations
 
-**Pros**
-- [Benefit 1]
-
-**Cons**
-- [Drawback 1]
-- [Drawback 2]
-
-**Effort**
-Low | Medium | High
+- A validated design document saved to `docs/plans/`.
+- Clear understanding of the problem and chosen approach.
+- User confirmation before proceeding to implementation.
 
 ---
 
-### Option C: [Name]
-[Description]
+## Key Principles
 
-**Pros**
-- [Benefit 1]
-
-**Cons**
-- [Drawback 1]
-
-**Effort**
-Low | Medium | High
+- **One question at a time** - Don't overwhelm with multiple questions.
+- **Multiple choice preferred** - Easier to answer than open-ended.
+- **YAGNI ruthlessly** - Remove unnecessary features from all designs.
+- **Explore alternatives** - Always propose 2-3 approaches before settling.
+- **Incremental validation** - Present design in sections, validate each.
+- **Be flexible** - Go back and clarify when something doesn't make sense.
 
 ---
 
-## Recommendation
-
-Recommended option: **[Option X]**
-
-Reasoning:
-[Clear explanation of why this option best fits the context]
-
-Next step:
-[What decision or confirmation is needed from the user]
-```
-
----
-
-## Examples
+## Usage Examples
 
 ```
 /brainstorm authentication system
@@ -127,4 +95,13 @@ Next step:
 
 ---
 
-#
+## Integration
+
+This workflow is the **entry point** for the Feature Development Lifecycle:
+
+1. **Brainstorm** (this workflow) → Design validated
+2. **Plan** (`/plan`) → Implementation plan created
+3. **Execute** (`/execute`) → Code implemented
+4. **Finish** (`/finish`) → Merge/PR
+
+---

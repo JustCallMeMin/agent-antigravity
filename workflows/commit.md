@@ -1,3 +1,6 @@
+---
+description: Create clean, conventional commits. Review changes, stage logically, and check for secrets before committing.
+---
 
 ## Invocation Rules
 
