@@ -2,7 +2,25 @@
 description: Debugging command. Activates DEBUG mode for systematic problem investigation.
 ---
 
-# /debug - Systematic Problem Investigation
+---
+description: Systematic debugging workflow for investigating errors, failures, and unexpected behavior.
+---
+
+## Invocation Rules
+
+This workflow MAY be invoked only when:
+- An issue, error, or unexpected behavior has been reported.
+- A structured root cause analysis is required.
+- The system is functioning but producing incorrect results.
+
+This workflow MUST NOT be invoked when:
+- The task is a new feature request or enhancement.
+- A task-plan (`{task-slug}.md`) is being created or executed.
+- The system is in a critical outage or breach (use Incident Response).
+
+---
+
+# /debug — Systematic Problem Investigation
 
 $ARGUMENTS
 
@@ -10,7 +28,9 @@ $ARGUMENTS
 
 ## Purpose
 
-This command activates DEBUG mode for systematic investigation of issues, errors, or unexpected behavior.
+Enable a structured and hypothesis-driven investigation of system issues.
+This workflow focuses on understanding the root cause, applying a fix,
+and preventing recurrence.
 
 ---
 
@@ -18,86 +38,96 @@ This command activates DEBUG mode for systematic investigation of issues, errors
 
 When `/debug` is triggered:
 
-1. **Gather information**
-   - Error message
-   - Reproduction steps
-   - Expected vs actual behavior
-   - Recent changes
+1. **Information Gathering**
+   - Capture error messages or symptoms.
+   - Record reproduction steps.
+   - Clarify expected versus actual behavior.
+   - Identify recent changes or deployments.
 
-2. **Form hypotheses**
-   - List possible causes
-   - Order by likelihood
+2. **Hypothesis Formation**
+   - List possible causes.
+   - Order hypotheses by likelihood and impact.
 
-3. **Investigate systematically**
-   - Test each hypothesis
-   - Check logs, data flow
-   - Use elimination method
+3. **Systematic Investigation**
+   - Test hypotheses one by one.
+   - Inspect logs, data flow, and state transitions.
+   - Eliminate causes based on evidence.
 
-4. **Fix and prevent**
-   - Apply fix
-   - Explain root cause
-   - Add prevention measures
+4. **Fix and Prevention**
+   - Apply the minimal correct fix.
+   - Explain the root cause clearly.
+   - Define concrete prevention measures.
+
+---
+
+## Output Expectations
+
+The debug result MUST include:
+- A clearly identified root cause.
+- Evidence supporting the conclusion.
+- A fix that addresses the cause, not just the symptom.
+- At least one prevention action.
 
 ---
 
 ## Output Format
 
 ```markdown
-## 🔍 Debug: [Issue]
+## Debug: [Issue Title]
 
-### 1. Symptom
-[What's happening]
+### Symptom
+[Description of what is happening]
 
-### 2. Information Gathered
-- Error: `[error message]`
-- File: `[filepath]`
-- Line: [line number]
+### Information Gathered
+- Error message: `[error message]`
+- Location: `[file path and line number if applicable]`
+- Environment: `[runtime / platform]`
 
-### 3. Hypotheses
-1. ❓ [Most likely cause]
-2. ❓ [Second possibility]
-3. ❓ [Less likely cause]
+### Hypotheses
+1. [Hypothesis] Most likely cause
+2. [Hypothesis] Alternative cause
+3. [Hypothesis] Less likely cause
 
-### 4. Investigation
+### Investigation
 
-**Testing hypothesis 1:**
-[What I checked] → [Result]
+**Testing hypothesis 1**
+[What was checked] → [Result]
 
-**Testing hypothesis 2:**
-[What I checked] → [Result]
+**Testing hypothesis 2**
+[What was checked] → [Result]
 
-### 5. Root Cause
-🎯 **[Explanation of why this happened]**
+### Root Cause
+[Clear explanation of why the issue occurred]
 
-### 6. Fix
+### Fix
 ```[language]
 // Before
-[broken code]
+[problematic code]
 
 // After
-[fixed code]
+[corrected code]
 ```
 
-### 7. Prevention
-🛡️ [How to prevent this in the future]
+### Prevention
+[Actions to prevent recurrence, such as tests, validation, monitoring]
 ```
 
 ---
 
-## Examples
+## Usage Examples
 
 ```
 /debug login not working
 /debug API returns 500
-/debug form doesn't submit
-/debug data not saving
+/debug form submission fails
+/debug data not persisted
 ```
 
 ---
 
 ## Key Principles
 
-- **Ask before assuming** - get full error context
-- **Test hypotheses** - don't guess randomly
-- **Explain why** - not just what to fix
-- **Prevent recurrence** - add tests, validation
+- Gather evidence before forming conclusions.
+- Test hypotheses systematically.
+- Fix the root cause, not the symptom.
+- Always define a prevention strategy.

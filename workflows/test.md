@@ -2,7 +2,24 @@
 description: Test generation and test running command. Creates and executes tests for code.
 ---
 
-# /test - Test Generation and Execution
+---
+description: Test generation and execution workflow for unit, integration, and E2E validation.
+---
+
+## Invocation Rules
+
+This workflow MAY be invoked only when:
+- Generating tests for a file, module, or feature.
+- Executing existing test suites.
+- Reviewing test coverage.
+
+This workflow MUST NOT be invoked when:
+- Writing production logic without test context.
+- Performing UI or design prototyping.
+
+---
+
+# /test — Test Generation and Execution
 
 $ARGUMENTS
 
@@ -10,135 +27,66 @@ $ARGUMENTS
 
 ## Purpose
 
-This command generates tests, runs existing tests, or checks test coverage.
+Generate and execute tests to validate system behavior.
+This workflow supports quality assurance but does not replace planning or debugging workflows.
 
 ---
 
-## Sub-commands
+## Supported Commands
 
 ```
-/test                - Run all tests
-/test [file/feature] - Generate tests for specific target
-/test coverage       - Show test coverage report
-/test watch          - Run tests in watch mode
+/test
+/test [file-or-feature]
+/test coverage
+/test watch
 ```
 
 ---
 
 ## Behavior
 
-### Generate Tests
+### Test Generation
 
-When asked to test a file or feature:
+When generating tests:
 
-1. **Analyze the code**
-   - Identify functions and methods
-   - Find edge cases
-   - Detect dependencies to mock
+1. **Code Analysis**
+   - Identify public behaviors.
+   - Detect dependencies and boundaries.
+   - Determine required mocks or fakes.
 
-2. **Generate test cases**
-   - Happy path tests
-   - Error cases
-   - Edge cases
-   - Integration tests (if needed)
+2. **Test Design**
+   - Happy path cases
+   - Error and edge cases
+   - Integration paths if applicable
 
-3. **Write tests**
-   - Use project's test framework (Jest, Vitest, etc.)
-   - Follow existing test patterns
-   - Mock external dependencies
-
----
-
-## Output Format
-
-### For Test Generation
-
-```markdown
-## 🧪 Tests: [Target]
-
-### Test Plan
-| Test Case | Type | Coverage |
-|-----------|------|----------|
-| Should create user | Unit | Happy path |
-| Should reject invalid email | Unit | Validation |
-| Should handle db error | Unit | Error case |
-
-### Generated Tests
-
-`tests/[file].test.ts`
-
-[Code block with tests]
+3. **Test Creation**
+   - Follow project testing conventions.
+   - Use the existing test framework.
+   - Avoid testing implementation details.
 
 ---
 
-Run with: `npm test`
-```
+### Test Execution
 
-### For Test Execution
-
-```
-🧪 Running tests...
-
-✅ auth.test.ts (5 passed)
-✅ user.test.ts (8 passed)
-❌ order.test.ts (2 passed, 1 failed)
-
-Failed:
-  ✗ should calculate total with discount
-    Expected: 90
-    Received: 100
-
-Total: 15 tests (14 passed, 1 failed)
-```
+When running tests:
+- Execute the relevant test suite.
+- Report pass/fail summary.
+- Surface failing assertions clearly.
 
 ---
 
-## Examples
+## Output Expectations
 
-```
-/test src/services/auth.service.ts
-/test user registration flow
-/test coverage
-/test fix failed tests
-```
-
----
-
-## Test Patterns
-
-### Unit Test Structure
-
-```typescript
-describe('AuthService', () => {
-  describe('login', () => {
-    it('should return token for valid credentials', async () => {
-      // Arrange
-      const credentials = { email: 'test@test.com', password: 'pass123' };
-      
-      // Act
-      const result = await authService.login(credentials);
-      
-      // Assert
-      expect(result.token).toBeDefined();
-    });
-
-    it('should throw for invalid password', async () => {
-      // Arrange
-      const credentials = { email: 'test@test.com', password: 'wrong' };
-      
-      // Act & Assert
-      await expect(authService.login(credentials)).rejects.toThrow('Invalid credentials');
-    });
-  });
-});
-```
+Depending on command, output MUST include:
+- Generated test file path (if applicable)
+- Test execution summary
+- Coverage report (if requested)
 
 ---
 
 ## Key Principles
 
-- **Test behavior not implementation**
-- **One assertion per test** (when practical)
-- **Descriptive test names**
-- **Arrange-Act-Assert pattern**
-- **Mock external dependencies**
+- Test observable behavior, not implementation.
+- Prefer clarity over coverage inflation.
+- Use deterministic tests.
+- Mock only external dependencies.

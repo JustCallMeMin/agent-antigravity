@@ -2,38 +2,76 @@
 description: Create new application command. Triggers App Builder skill and starts interactive dialogue with user.
 ---
 
-# /create - Create Application
+---
+description: Create a new application or major system from scratch. Initializes planning and orchestration flow.
+---
+
+## Invocation Rules
+
+This workflow MAY be invoked only when:
+- The user wants to start a completely new application or project.
+- A new major system, module, or microservice is being initialized.
+- No existing architecture or plan has been approved yet.
+
+This workflow MUST NOT be invoked when:
+- Adding features to an existing application (use `/enhance`).
+- Debugging or fixing issues in an existing system (use `/debug`).
+- A task-plan (`{task-slug}.md`) has already been approved.
+
+---
+
+# /create — Create New Application
 
 $ARGUMENTS
 
 ---
 
-## Task
+## Purpose
 
-This command starts a new application creation process.
+Start a structured application creation process.
+This workflow ensures that new systems are properly analyzed, planned, and approved
+before any implementation begins.
 
-### Steps:
+---
+
+## Behavior
+
+When `/create` is triggered:
 
 1. **Request Analysis**
-   - Understand what the user wants
-   - If information is missing, use `conversation-manager` skill to ask
+   - Understand the user’s intent and high-level goals.
+   - Identify missing or ambiguous information.
+   - Ask clarifying questions if required.
 
 2. **Project Planning**
-   - Use `project-planner` agent for task breakdown
-   - Determine tech stack
-   - Plan file structure
-   - Create plan file and proceed to building
+   - Invoke `project-planner` to:
+     - Break down scope into tasks.
+     - Propose architecture and tech stack.
+     - Plan file and directory structure.
+     - Generate a `{task-slug}.md` plan file.
 
-3. **Application Building (After Approval)**
-   - Orchestrate with `app-builder` skill
-   - Coordinate expert agents:
-     - `database-architect` → Schema
-     - `backend-specialist` → API
-     - `frontend-specialist` → UI
+3. **Approval Gate**
+   - Pause execution until the plan is reviewed and approved.
+   - No implementation may start before approval.
 
-4. **Preview**
-   - Start with `auto_preview.py` when complete
-   - Present URL to user
+4. **Application Building (Post-Approval)**
+   - Orchestrate execution using appropriate agents:
+     - `database-architect` for data modeling.
+     - `backend-specialist` for APIs and services.
+     - `frontend-specialist` or `mobile-developer` for UI.
+
+5. **Preview and Handoff**
+   - Generate a runnable preview if applicable.
+   - Present access details or next steps to the user.
+
+---
+
+## Output Expectations
+
+- A clear understanding of application scope and intent.
+- A formally written `{task-slug}.md` plan file.
+- Explicit approval checkpoint before implementation.
+- No production code written prior to approval.
 
 ---
 
@@ -41,19 +79,19 @@ This command starts a new application creation process.
 
 ```
 /create blog site
-/create e-commerce app with product listing and cart
-/create todo app
-/create Instagram clone
-/create crm system with customer management
+/create e-commerce application with product listing and cart
+/create todo application
+/create social media platform
+/create CRM system with customer management
 ```
 
 ---
 
-## Before Starting
+## Pre-Flight Questions
 
-If request is unclear, ask these questions:
-- What type of application?
-- What are the basic features?
-- Who will use it?
+If the request is unclear, ask:
+- What type of application is being built?
+- Who are the intended users?
+- What are the core features or goals?
 
-Use defaults, add details later.
+Defaults MAY be proposed but MUST be confirmed.

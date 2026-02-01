@@ -2,88 +2,150 @@
 description: Create project plan using project-planner agent. No code writing - only plan file generation.
 ---
 
-# /plan - Project Planning Mode
+---
+description: Project planning workflow that produces a formal plan file using the project-planner agent. No implementation is allowed.
+---
+
+## Invocation Rules
+
+This workflow MAY be invoked only when:
+- The user explicitly requests project planning (e.g., `/plan`).
+- A task is complex enough to require structured breakdown before execution.
+
+This workflow MUST NOT be invoked when:
+- The task is trivial (one-line fix or obvious change).
+- An approved plan already exists for the same scope.
+
+---
+
+# /plan — Project Planning Mode
 
 $ARGUMENTS
 
 ---
 
-## 🔴 CRITICAL RULES
+## Purpose
 
-1. **NO CODE WRITING** - This command creates plan file only
-2. **Use project-planner agent** - NOT Antigravity Agent's native Plan mode
-3. **Socratic Gate** - Ask clarifying questions before planning
-4. **Dynamic Naming** - Plan file named based on task
+Create a structured and reviewable project plan before any implementation begins.
+This workflow enforces planning discipline and prevents premature execution.
 
 ---
 
-## Task
+## Critical Constraints
 
-Use the `project-planner` agent with this context:
+The following rules are mandatory and non-negotiable:
 
-```
-CONTEXT:
-- User Request: $ARGUMENTS
-- Mode: PLANNING ONLY (no code)
-- Output: docs/PLAN-{task-slug}.md (dynamic naming)
+1. **No code writing**  
+   This workflow creates planning artifacts only.
 
-NAMING RULES:
-1. Extract 2-3 key words from request
-2. Lowercase, hyphen-separated
-3. Max 30 characters
-4. Example: "e-commerce cart" → PLAN-ecommerce-cart.md
+2. **Project-planner agent only**  
+   Planning MUST be executed by the `project-planner` agent.  
+   Native or implicit planning by other agents is forbidden.
 
-RULES:
-1. Follow project-planner.md Phase -1 (Context Check)
-2. Follow project-planner.md Phase 0 (Socratic Gate)
-3. Create PLAN-{slug}.md with task breakdown
-4. DO NOT write any code files
-5. REPORT the exact file name created
-```
+3. **Socratic Gate required**  
+   Clarifying questions MUST be asked if scope, constraints, or goals are unclear.  
+   Missing information MUST NOT be inferred.
+
+4. **Dynamic naming**  
+   The plan file name MUST be derived from the task intent.
 
 ---
 
-## Expected Output
+## Behavior
 
-| Deliverable | Location |
-|-------------|----------|
-| Project Plan | `docs/PLAN-{task-slug}.md` |
-| Task Breakdown | Inside plan file |
-| Agent Assignments | Inside plan file |
-| Verification Checklist | Phase X in plan file |
+When `/plan` is triggered:
+
+1. **Context Establishment**
+   - Capture the full user request.
+   - Confirm planning-only mode (no implementation).
+   - Check whether a relevant approved plan already exists.
+
+2. **Socratic Clarification**
+   - Ask clarifying questions if required.
+   - Do not proceed until critical ambiguities are resolved.
+
+3. **Plan Generation**
+   - Invoke the `project-planner` agent with planning-only context.
+   - Generate a structured plan file containing:
+     - Task breakdown
+     - Agent assignments
+     - Dependencies
+     - Verification checklist (Phase X)
+   - Do not create or modify any code files.
+
+4. **Reporting**
+   - Report the exact file path of the plan created.
+   - Do not proceed to execution.
 
 ---
 
-## After Planning
+## Plan File Location and Naming
 
-Tell user:
+All plans MUST be created under:
+
 ```
-[OK] Plan created: docs/PLAN-{slug}.md
+docs/plan/active/
+```
+
+### Naming Rules
+
+- Extract 2–3 key terms from the user request.
+- Use lowercase, hyphen-separated words.
+- Maximum length: 30 characters.
+- No prefixes such as `PLAN-` (context is provided by directory).
+
+### Examples
+
+| User Request | Plan File |
+|-------------|-----------|
+| e-commerce site with cart | `docs/plan/active/ecommerce-cart.md` |
+| mobile app for fitness | `docs/plan/active/fitness-app.md` |
+| add dark mode feature | `docs/plan/active/dark-mode.md` |
+| fix authentication bug | `docs/plan/active/auth-fix.md` |
+| SaaS dashboard | `docs/plan/active/saas-dashboard.md` |
+
+---
+
+## Output Expectations
+
+This workflow MUST produce:
+- Exactly one plan file under `docs/plan/active/{task-slug}.md`.
+- Task breakdown inside the plan file.
+- Agent assignments inside the plan file.
+- Verification checklist (Phase X) inside the plan file.
+
+No other files may be created.
+
+---
+
+## Post-Planning Instruction
+
+After planning is complete, inform the user:
+
+```
+[OK] Plan created: docs/plan/active/{task-slug}.md
 
 Next steps:
-- Review the plan
-- Run `/create` to start implementation
-- Or modify plan manually
+- Review and approve the plan.
+- Use `/create` or `/orchestrate` to begin execution.
+- Modify the plan if changes are required.
 ```
 
 ---
 
-## Naming Examples
-
-| Request | Plan File |
-|---------|-----------|
-| `/plan e-commerce site with cart` | `docs/PLAN-ecommerce-cart.md` |
-| `/plan mobile app for fitness` | `docs/PLAN-fitness-app.md` |
-| `/plan add dark mode feature` | `docs/PLAN-dark-mode.md` |
-| `/plan fix authentication bug` | `docs/PLAN-auth-fix.md` |
-| `/plan SaaS dashboard` | `docs/PLAN-saas-dashboard.md` |
-
----
-
-## Usage
+## Usage Examples
 
 ```
 /plan e-commerce site with cart
 /plan mobile app for fitness tracking
 /plan SaaS dashboard with analytics
 ```
+
+---
+
+## Key Principles
+
+- Planning precedes execution.
+- No assumptions without confirmation.
+- Plans must be reviewable, auditable, and verifiable.
+- Execution without an approved plan is forbidden.
