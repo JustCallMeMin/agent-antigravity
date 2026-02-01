@@ -5,17 +5,17 @@ description: Structured brainstorming for projects and features. Explores multip
 ## Invocation Rules
 
 This workflow MAY be invoked only when:
-- Requirements involve new features, architecture decisions, or complex trade-offs.
-- Intent exploration is explicitly requested or necessary per AOS Step 3.
+- Requirements involve new features, architectural decisions, or complex trade-offs.
+- Intent exploration is explicitly requested or required by AOS decision gates.
 
 This workflow MUST NOT be invoked when:
 - A task-plan (`{task-slug}.md`) has already been approved.
-- Implementation phase has already started.
+- Implementation has already started.
 - The task is a simple bug fix or trivial change.
 
 ---
 
-# /brainstorm - Structured Idea Exploration
+# /brainstorm — Structured Idea Exploration
 
 $ARGUMENTS
 
@@ -23,7 +23,8 @@ $ARGUMENTS
 
 ## Purpose
 
-This command activates BRAINSTORM mode for structured idea exploration. Use when you need to explore options before committing to an implementation.
+Activate structured idea exploration before committing to an implementation.
+This workflow is used to reduce uncertainty, compare approaches, and clarify intent.
 
 ---
 
@@ -33,24 +34,25 @@ When `/brainstorm` is triggered:
 
 1. **Understand the goal**
    - What problem are we solving?
-   - Who is the user?
-   - What constraints exist?
+   - Who is the user or stakeholder?
+   - What constraints exist (technical, business, time)?
 
 2. **Generate options**
-   - Provide at least 3 different approaches
-   - Each with pros and cons
-   - Consider unconventional solutions
+   - Provide 2–4 viable approaches when possible
+   - Describe each option clearly
+   - Include both conventional and unconventional ideas when relevant
 
 3. **Compare and recommend**
-   - Summarize tradeoffs
-   - Give a recommendation with reasoning
+   - Summarize key trade-offs
+   - Identify dominant or risky factors
+   - Provide a reasoned recommendation
 
 ---
 
 ## Output Format
 
 ```markdown
-## 🧠 Brainstorm: [Topic]
+## Brainstorm: [Topic]
 
 ### Context
 [Brief problem statement]
@@ -60,49 +62,56 @@ When `/brainstorm` is triggered:
 ### Option A: [Name]
 [Description]
 
-✅ **Pros:**
-- [benefit 1]
-- [benefit 2]
+**Pros**
+- [Benefit 1]
+- [Benefit 2]
 
-❌ **Cons:**
-- [drawback 1]
+**Cons**
+- [Drawback 1]
 
-📊 **Effort:** Low | Medium | High
+**Effort**
+Low | Medium | High
 
 ---
 
 ### Option B: [Name]
 [Description]
 
-✅ **Pros:**
-- [benefit 1]
+**Pros**
+- [Benefit 1]
 
-❌ **Cons:**
-- [drawback 1]
-- [drawback 2]
+**Cons**
+- [Drawback 1]
+- [Drawback 2]
 
-📊 **Effort:** Low | Medium | High
+**Effort**
+Low | Medium | High
 
 ---
 
 ### Option C: [Name]
 [Description]
 
-✅ **Pros:**
-- [benefit 1]
+**Pros**
+- [Benefit 1]
 
-❌ **Cons:**
-- [drawback 1]
+**Cons**
+- [Drawback 1]
 
-📊 **Effort:** Low | Medium | High
+**Effort**
+Low | Medium | High
 
 ---
 
-## 💡 Recommendation
+## Recommendation
 
-**Option [X]** because [reasoning].
+Recommended option: **[Option X]**
 
-What direction would you like to explore?
+Reasoning:
+[Clear explanation of why this option best fits the context]
+
+Next step:
+[What decision or confirmation is needed from the user]
 ```
 
 ---
@@ -118,9 +127,4 @@ What direction would you like to explore?
 
 ---
 
-## Key Principles
-
-- **No code** - this is about ideas, not implementation
-- **Visual when helpful** - use diagrams for architecture
-- **Honest tradeoffs** - don't hide complexity
-- **Defer to user** - present options, let them decide
+#
