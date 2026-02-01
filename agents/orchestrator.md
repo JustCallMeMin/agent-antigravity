@@ -17,12 +17,15 @@ skills:
   - clean-code
   - parallel-agents
   - behavioral-modes
-  - plan-writing
+  - writing-plans
   - brainstorming
   - architecture
   - lint-and-validate
   - bash-linux
   - powershell-windows
+  - executing-plans
+  - using-git-worktrees
+  - finishing-a-development-branch
 
 description: >
   Primary orchestration agent responsible for planning, coordinating, and

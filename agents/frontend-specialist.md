@@ -17,6 +17,7 @@ skills:
   - frontend-design
   - nextjs-react-expert
   - lint-and-validate
+  - remotion-best-practices
 
 description: >
   Senior Frontend Specialist responsible for building maintainable,

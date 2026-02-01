@@ -12,7 +12,8 @@ tools:
   - Write
 
 skills:
-  - plan-writing
+  - writing-plans
+  - using-git-worktrees
   - dependency-analysis
   - risk-identification
   - system-thinking
