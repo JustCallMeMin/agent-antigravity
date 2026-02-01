@@ -17,6 +17,7 @@ skills:
   - frontend-design
   - nextjs-react-expert
   - lint-and-validate
+  - commit-work
   - remotion-best-practices
 
 description: >

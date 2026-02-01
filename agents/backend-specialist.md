@@ -18,6 +18,7 @@ skills:
   - testing-patterns
   - systematic-debugging
   - lint-and-validate
+  - commit-work
 
 description: >
   Backend Specialist agent responsible for designing, implementing, and

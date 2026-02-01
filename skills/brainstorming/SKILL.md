@@ -1,118 +1,54 @@
 ---
 name: brainstorming
-description: >
-  Mandatory cognitive skill enforcing Socratic discovery and decision framing
-  before implementation. Use when requests involve new features, unclear
-  requirements, architectural decisions, or non-trivial trade-offs.
+description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
 ---
 
-# Brainstorming Skill
+# Brainstorming Ideas Into Designs
 
-## Purpose
+## Overview
 
-This skill enforces **disciplined thinking before execution**.
+Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
 
-It prevents premature implementation by requiring:
-- clarification of intent
-- exploration of alternatives
-- identification of trade-offs and risks
+Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
 
-This skill governs **how to think**, not **what to build**.
+## The Process
 
----
+**Understanding the idea:**
+- Check out the current project state first (files, docs, recent commits)
+- Ask questions one at a time to refine the idea
+- Prefer multiple choice questions when possible, but open-ended is fine too
+- Only one question per message - if a topic needs more exploration, break it into multiple questions
+- Focus on understanding: purpose, constraints, success criteria
 
-## When This Skill MUST Be Used
+**Exploring approaches:**
+- Propose 2-3 different approaches with trade-offs
+- Present options conversationally with your recommendation and reasoning
+- Lead with your recommended option and explain why
 
-Trigger this skill when a request involves at least one of the following:
+**Presenting the design:**
+- Once you believe you understand what you're building, present the design
+- Break it into sections of 200-300 words
+- Ask after each section whether it looks right so far
+- Cover: architecture, components, data flow, error handling, testing
+- Be ready to go back and clarify if something doesn't make sense
 
-- New feature or system design
-- Ambiguous or underspecified requirements
-- Architectural or cross-domain impact
-- Multiple possible solution paths
-- Irreversible or high-risk changes
+## After the Design
 
-If none apply, this skill MAY be skipped.
+**Documentation:**
+- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
+- Use elements-of-style:writing-clearly-and-concisely skill if available
+- Commit the design document to git
 
----
+**Implementation (if continuing):**
+- Ask: "Ready to set up for implementation?"
+- Use superpowers:using-git-worktrees to create isolated workspace
+- Use superpowers:writing-plans to create detailed implementation plan
 
-## Core Principles
+## Key Principles
 
-- Never assume intent
-- Prefer questions over guesses
-- Expose trade-offs explicitly
-- Reduce solution space before acting
-
----
-
-## Socratic Gate (MANDATORY)
-
-Before implementation, you MUST:
-
-1. Identify what is unclear or risky
-2. Ask the **minimum number of questions** required to:
-   - eliminate incorrect assumptions
-   - narrow the solution space
-3. Wait for user confirmation
-
-Typical range: **2–4 questions**, depending on complexity.
-
-Skipping this gate is a protocol violation.
-
----
-
-## Question Design Rules
-
-Questions MUST:
-- Be open-ended
-- Reveal constraints or priorities
-- Focus on intent, not implementation
-- Avoid yes/no where possible
-
-Questions MUST NOT:
-- Propose solutions prematurely
-- Lead the user to a specific answer
-- Ask for information irrelevant to decisions
-
----
-
-## Decision Framing
-
-After clarification, you MUST:
-
-- Summarize the confirmed intent
-- List viable options
-- Highlight key trade-offs
-- Identify risks and unknowns
-
-If the decision remains ambiguous → ASK again.
-
----
-
-## Boundaries
-
-This skill:
-- DOES NOT generate implementation plans
-- DOES NOT create task artifacts
-- DOES NOT decide agents or ownership
-- DOES NOT enforce output formatting
-
-Those responsibilities belong to:
-- Orchestrator
-- `{task-slug}.md` artifacts
-- Agent contracts
-
----
-
-## Failure Conditions
-
-You are in violation if you:
-- Implement without clarification
-- Ask redundant or shallow questions
-- Force a solution without decision framing
-
----
-
-## Final Principle
-
-If you cannot explain **why** a solution is chosen,
-you are not ready to build it.
+- **One question at a time** - Don't overwhelm with multiple questions
+- **Multiple choice preferred** - Easier to answer than open-ended when possible
+- **YAGNI ruthlessly** - Remove unnecessary features from all designs
+- **Explore alternatives** - Always propose 2-3 approaches before settling
+- **Incremental validation** - Present design in sections, validate each
+- **Be flexible** - Go back and clarify when something doesn't make sense

@@ -23,6 +23,7 @@ skills:
   - lint-and-validate
   - bash-linux
   - powershell-windows
+  - commit-work
   - executing-plans
   - using-git-worktrees
   - finishing-a-development-branch
